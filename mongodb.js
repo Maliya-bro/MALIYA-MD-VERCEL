@@ -149,6 +149,23 @@ export async function keepAlivePing() {
   }
 }
 
+/**
+ * checkSessionReady(phone)
+ * ─────────────────────────
+ * wa_sessions collection එකේ given phone number එකට
+ * status: "ready" session එකක් තිබේ නම් true, නැත්නම් false return කරයි.
+ * Polling endpoint /pair/check-status විසින් call කරනු ලැබේ.
+ */
+export async function checkSessionReady(phone) {
+  const db  = await getDb();
+  const col = db.collection(SESSION_COLLECTION);
+  const doc = await col.findOne(
+    { phone: String(phone), status: "ready" },
+    { projection: { _id: 1 } }   // _id විතරක් pull කරනවා — fast
+  );
+  return !!doc;
+}
+
 export async function closeMongoConnection() {
   try {
     if (cachedClient) {
