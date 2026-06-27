@@ -11,7 +11,7 @@ import {
     fetchLatestWaWebVersion,
 } from "@whiskeysockets/baileys";
 import { phone as validatePhone } from "phone";
-import { saveSessionState } from "./mongodb.js";
+import { saveSessionState, checkSessionReady } from "./mongodb.js";
 import { setSessionId } from "./session-store.js";
 
 const phoneQuerySchema = z.object({
@@ -44,6 +44,25 @@ function generateMegaStyleId() {
     }
     return `${randomString(8)}#${randomString(43)}`;
 }
+
+// ── NEW: Polling endpoint — frontend calls this every 2s after getting the code ──
+// Rate limiter automatically skipped for this path (see index.js skip fn)
+router.get("/check-status", async (req, res) => {
+    const parsed = phoneQuerySchema.safeParse({
+        number: String(req.query.number ?? "").replace(/[^0-9]/g, ""),
+    });
+    if (!parsed.success) {
+        return res.status(400).json({ ready: false });
+    }
+
+    try {
+        const ready = await checkSessionReady(parsed.data.number);
+        return res.json({ ready });
+    } catch (err) {
+        console.error("check-status error:", err);
+        return res.status(500).json({ ready: false });
+    }
+});
 
 router.get("/", async (req, res) => {
     const parsed = phoneQuerySchema.safeParse({
