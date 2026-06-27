@@ -1115,573 +1115,9 @@
       }
     </style>
 
-    <!-- ── Ban wall styles ── -->
-    <style>
-      html.bw-active {
-        overflow: hidden !important;
-      }
-      #ban-wall {
-        display: none;
-        position: fixed;
-        inset: 0;
-        z-index: 2147483647;
-        background: #050000;
-        align-items: flex-start;
-        justify-content: center;
-        font-family: "Share Tech Mono", monospace;
-        color: #fff;
-        padding: 20px;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-      html.bw-active #ban-wall {
-        display: flex !important;
-      }
-      #ban-wall::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background-image:
-          linear-gradient(rgba(220, 0, 0, 0.08) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(220, 0, 0, 0.08) 1px, transparent 1px);
-        background-size: 40px 40px;
-        animation: bwGP 4s ease-in-out infinite;
-        pointer-events: none;
-      }
-      @keyframes bwGP {
-        0%,
-        100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0.4;
-        }
-      }
-      #ban-wall::after {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background: repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 2px,
-          rgba(0, 0, 0, 0.18) 2px,
-          rgba(0, 0, 0, 0.18) 4px
-        );
-        pointer-events: none;
-        z-index: 1;
-      }
-      .bw-stripe {
-        position: fixed;
-        left: 0;
-        right: 0;
-        z-index: 2;
-        height: 8px;
-        background: repeating-linear-gradient(
-          45deg,
-          #cc0000,
-          #cc0000 14px,
-          #111 14px,
-          #111 28px
-        );
-      }
-      .bw-top {
-        top: 0;
-      }
-      .bw-bot {
-        bottom: 0;
-      }
-      .bw-card {
-        position: relative;
-        z-index: 10;
-        background: linear-gradient(
-          160deg,
-          rgba(20, 0, 0, 0.97),
-          rgba(8, 0, 0, 0.98)
-        );
-        border: 2px solid #c00;
-        border-radius: 18px;
-        padding: 44px 36px 36px;
-        max-width: 500px;
-        width: 100%;
-        text-align: center;
-        margin: auto;
-        box-shadow:
-          0 0 0 1px rgba(255, 0, 0, 0.15),
-          0 0 40px rgba(200, 0, 0, 0.35),
-          0 0 120px rgba(150, 0, 0, 0.2),
-          inset 0 0 60px rgba(180, 0, 0, 0.06);
-      }
-      .bw-badge {
-        display: inline-block;
-        background: #c00;
-        color: #fff;
-        font-family: "Orbitron", sans-serif;
-        font-size: 11px;
-        font-weight: 900;
-        letter-spacing: 3px;
-        padding: 5px 16px;
-        border-radius: 3px;
-        margin-bottom: 20px;
-        animation: bwPulse 1.4s ease-in-out infinite;
-      }
-      @keyframes bwPulse {
-        0%,
-        100% {
-          box-shadow: 0 0 16px rgba(255, 0, 0, 0.5);
-        }
-        50% {
-          box-shadow: 0 0 32px rgba(255, 0, 0, 0.9);
-        }
-      }
-      .bw-title {
-        font-family: "Orbitron", sans-serif;
-        font-size: clamp(20px, 5vw, 32px);
-        font-weight: 900;
-        color: #ff1a1a;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        text-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
-        position: relative;
-        margin-bottom: 8px;
-        animation: bwGlitch 3s infinite;
-      }
-      .bw-title::before,
-      .bw-title::after {
-        content: attr(data-t);
-        position: absolute;
-        inset: 0;
-        font-family: inherit;
-        font-size: inherit;
-        font-weight: inherit;
-        letter-spacing: inherit;
-      }
-      .bw-title::before {
-        color: #f00;
-        animation: bwG1 3s infinite;
-        clip-path: polygon(0 0, 100% 0, 100% 40%, 0 40%);
-      }
-      .bw-title::after {
-        color: #ff6060;
-        animation: bwG2 3s infinite;
-        clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
-      }
-      @keyframes bwGlitch {
-        0%,
-        90%,
-        100% {
-          transform: none;
-        }
-        92% {
-          transform: skewX(-2deg);
-        }
-        94% {
-          transform: skewX(2deg);
-        }
-        96% {
-          transform: none;
-        }
-      }
-      @keyframes bwG1 {
-        0%,
-        90%,
-        100% {
-          transform: none;
-          opacity: 0;
-        }
-        91% {
-          transform: translateX(-3px);
-          opacity: 0.8;
-        }
-        93% {
-          transform: translateX(3px);
-        }
-        95% {
-          opacity: 0;
-        }
-      }
-      @keyframes bwG2 {
-        0%,
-        88%,
-        100% {
-          transform: none;
-          opacity: 0;
-        }
-        89% {
-          transform: translateX(3px);
-          opacity: 0.8;
-        }
-        91% {
-          transform: translateX(-3px);
-        }
-        93% {
-          opacity: 0;
-        }
-      }
-      .bw-alert {
-        background: rgba(180, 0, 0, 0.15);
-        border: 1px solid rgba(255, 0, 0, 0.4);
-        border-left: 4px solid #ff2020;
-        border-radius: 8px;
-        padding: 10px 14px;
-        margin-bottom: 16px;
-        font-size: 12px;
-        color: #ff8080;
-        line-height: 1.6;
-        text-align: left;
-        letter-spacing: 0.3px;
-      }
-      .bw-alert strong {
-        color: #ff4444;
-      }
-      .bw-sub {
-        font-size: 13px;
-        color: rgba(255, 120, 120, 0.7);
-        margin-bottom: 24px;
-        line-height: 1.7;
-      }
-      .bw-sub strong {
-        color: #ff4040;
-      }
-      .bw-info {
-        background: rgba(180, 0, 0, 0.08);
-        border: 1px solid rgba(200, 0, 0, 0.35);
-        border-left: 4px solid #c00;
-        border-radius: 10px;
-        padding: 14px 18px;
-        margin-bottom: 24px;
-        text-align: left;
-      }
-      .bw-info-lbl {
-        font-size: 10px;
-        letter-spacing: 2px;
-        color: rgba(255, 80, 80, 0.5);
-        font-weight: 700;
-        margin-bottom: 5px;
-      }
-      .bw-info-val {
-        font-family: "Orbitron", sans-serif;
-        font-size: 13px;
-        color: #ff4444;
-        word-break: break-all;
-      }
-      .bw-dot {
-        display: inline-block;
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: #ff2020;
-        margin-right: 6px;
-        box-shadow: 0 0 6px #f00;
-        animation: bwBlink 0.8s ease-in-out infinite;
-        vertical-align: middle;
-      }
-      @keyframes bwBlink {
-        0%,
-        100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0.2;
-        }
-      }
-      .bw-tlbl {
-        font-size: 11px;
-        letter-spacing: 3px;
-        font-weight: 700;
-        color: rgba(255, 80, 80, 0.5);
-        margin-bottom: 12px;
-      }
-      .bw-timer {
-        display: flex;
-        gap: 8px;
-        justify-content: center;
-        margin-bottom: 26px;
-      }
-      .bw-tb {
-        flex: 1;
-        max-width: 88px;
-        background: rgba(100, 0, 0, 0.25);
-        border: 1px solid rgba(200, 0, 0, 0.3);
-        border-radius: 10px;
-        padding: 14px 6px 10px;
-        position: relative;
-        overflow: hidden;
-      }
-      .bw-tb::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 1px;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(255, 0, 0, 0.6),
-          transparent
-        );
-        animation: bwScan 2s linear infinite;
-      }
-      @keyframes bwScan {
-        0% {
-          transform: translateY(0);
-        }
-        100% {
-          transform: translateY(64px);
-        }
-      }
-      .bw-num {
-        font-family: "Orbitron", sans-serif;
-        font-size: 30px;
-        font-weight: 900;
-        color: #ff3030;
-        text-shadow: 0 0 14px rgba(255, 0, 0, 0.6);
-        line-height: 1;
-        display: block;
-      }
-      .bw-sep {
-        font-family: "Orbitron", sans-serif;
-        font-size: 26px;
-        font-weight: 900;
-        color: rgba(255, 50, 50, 0.4);
-        line-height: 1;
-        padding-top: 14px;
-      }
-      .bw-tl {
-        font-size: 9px;
-        color: rgba(255, 80, 80, 0.45);
-        font-weight: 700;
-        letter-spacing: 1.5px;
-        margin-top: 5px;
-      }
-      .bw-note {
-        font-size: 12px;
-        color: rgba(255, 80, 80, 0.4);
-        line-height: 1.7;
-        border-top: 1px solid rgba(200, 0, 0, 0.15);
-        padding-top: 18px;
-        margin-bottom: 18px;
-      }
-      .bw-note strong {
-        color: rgba(255, 80, 80, 0.65);
-      }
-      .bw-rst {
-        display: none;
-        font-family: "Orbitron", sans-serif;
-        font-size: 13px;
-        font-weight: 700;
-        color: #ff6060;
-        letter-spacing: 2px;
-        animation: bwPulse 1s infinite;
-        margin-top: 14px;
-      }
-      #bwCanvas {
-        position: fixed;
-        inset: 0;
-        z-index: 0;
-        pointer-events: none;
-      }
-      /* Unban section */
-      .bw-unban-btn {
-        width: 100%;
-        padding: 12px;
-        border-radius: 10px;
-        border: 1px solid rgba(255, 80, 80, 0.35);
-        background: rgba(180, 0, 0, 0.15);
-        color: #ff8080;
-        font-family: "Share Tech Mono", monospace;
-        font-size: 13px;
-        font-weight: 700;
-        cursor: pointer;
-        letter-spacing: 1px;
-        transition: all 0.2s;
-      }
-      .bw-unban-btn:hover {
-        background: rgba(180, 0, 0, 0.28);
-        border-color: rgba(255, 80, 80, 0.6);
-        color: #ffaaaa;
-      }
-      .bw-unban-input {
-        width: 100%;
-        padding: 11px 14px;
-        border-radius: 8px;
-        margin-top: 10px;
-        border: 1px solid rgba(255, 80, 80, 0.3);
-        background: rgba(10, 0, 0, 0.7);
-        color: #fff;
-        font-size: 15px;
-        font-family: "Share Tech Mono", monospace;
-        letter-spacing: 3px;
-        text-align: center;
-        outline: none;
-        transition: border-color 0.2s;
-      }
-      .bw-unban-input:focus {
-        border-color: rgba(255, 80, 80, 0.7);
-      }
-      .bw-unban-submit {
-        width: 100%;
-        padding: 11px;
-        margin-top: 8px;
-        border-radius: 8px;
-        border: none;
-        background: #c00;
-        color: #fff;
-        font-family: "Share Tech Mono", monospace;
-        font-size: 13px;
-        font-weight: 700;
-        cursor: pointer;
-        letter-spacing: 1px;
-        transition: background 0.2s;
-      }
-      .bw-unban-submit:hover:not(:disabled) {
-        background: #e00;
-      }
-      .bw-unban-submit:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-      }
-      .bw-unban-err {
-        font-size: 11px;
-        color: #ff6060;
-        margin: 6px 0;
-        min-height: 16px;
-      }
-      .bw-unban-cd {
-        margin-top: 18px;
-        font-family: "Orbitron", sans-serif;
-        font-size: 14px;
-        font-weight: 900;
-        color: #ff6060;
-        letter-spacing: 2px;
-        animation: bwPulse 1s ease-in-out infinite;
-      }
-      .bw-unban-cd span {
-        font-size: 22px;
-        color: #ff3030;
-      }
-    </style>
 
-    <!-- Synchronous localStorage check — runs before body paints, no flash -->
-    <script>
-      (function () {
-        var BAN = "maliya_banned_until";
-        try {
-          var exp = parseInt(localStorage.getItem(BAN) || "0", 10);
-          if (exp > Date.now()) {
-            window.__banExpiry = exp;
-          } else if (exp) {
-            localStorage.removeItem(BAN);
-            localStorage.removeItem("maliya_req_track");
-          }
-        } catch (e) {}
-      })();
-    </script>
   </head>
   <body>
-    <!-- ════════════════════════════════════════════
-         BAN WALL — activated by html.bw-active class
-         ════════════════════════════════════════════ -->
-    <canvas id="bwCanvas"></canvas>
-    <div class="bw-stripe bw-top"></div>
-    <div class="bw-stripe bw-bot"></div>
-    <div id="ban-wall">
-      <div class="bw-card">
-        <div class="bw-badge">⛔ &nbsp;ACCESS TERMINATED</div>
-        <div class="bw-title" data-t="YOU ARE BANNED">YOU ARE BANNED</div>
-        <div class="bw-alert">
-          ⚠️ &nbsp;<strong>There are abnormal activities with your IP</strong> —
-          it has been suspended.
-        </div>
-        <p class="bw-sub">
-          You have <strong>exceeded the request limit</strong> for this
-          service.<br />
-          Your access is <strong>locked out</strong> for 24 hours.
-        </p>
-        <div class="bw-info">
-          <div class="bw-info-lbl">📁 &nbsp;BAN RECORD</div>
-          <div class="bw-info-val" id="bwExpDisp">—</div>
-          <div
-            style="
-              font-size: 11px;
-              color: rgba(255, 80, 80, 0.5);
-              margin-top: 4px;
-            "
-          >
-            <span class="bw-dot"></span>IP-LOCK ACTIVE &nbsp;·&nbsp;
-            AUTO-RELEASE ON EXPIRY
-          </div>
-        </div>
-        <div class="bw-tlbl">🔒 &nbsp;BAN EXPIRES IN</div>
-        <div class="bw-timer">
-          <div class="bw-tb">
-            <span class="bw-num" id="bwH">00</span>
-            <div class="bw-tl">HOURS</div>
-          </div>
-          <div class="bw-sep">:</div>
-          <div class="bw-tb">
-            <span class="bw-num" id="bwM">00</span>
-            <div class="bw-tl">MINS</div>
-          </div>
-          <div class="bw-sep">:</div>
-          <div class="bw-tb">
-            <span class="bw-num" id="bwS">00</span>
-            <div class="bw-tl">SECS</div>
-          </div>
-        </div>
-        <div class="bw-note">
-          Limit is <strong>10 requests per 24 hours</strong> per IP.<br />
-          This page <strong>automatically reloads</strong> when the timer hits
-          zero.
-        </div>
-
-        <!-- Unban request -->
-        <div id="bwUnbanBtn">
-          <button class="bw-unban-btn" onclick="showUnbanRequest()">
-            📩 &nbsp;Request Unban
-          </button>
-        </div>
-        <div id="bwUnbanSection" style="display: none; margin-top: 4px">
-          <div
-            style="
-              font-size: 10px;
-              letter-spacing: 2px;
-              color: rgba(255, 80, 80, 0.5);
-              font-weight: 700;
-              margin-bottom: 4px;
-            "
-          >
-            ENTER UNBAN CODE
-          </div>
-          <input
-            id="bwUnbanCode"
-            class="bw-unban-input"
-            type="tel"
-            inputmode="numeric"
-            pattern="[0-9]*"
-            placeholder="• • • • • •"
-            maxlength="20"
-          />
-          <div id="bwUnbanErr" class="bw-unban-err"></div>
-          <button
-            id="bwUnbanSubmit"
-            class="bw-unban-submit"
-            onclick="submitUnbanCode()"
-          >
-            Submit Code
-          </button>
-        </div>
-        <div id="bwUnbanCountdown" style="display: none">
-          <div class="bw-unban-cd">
-            ⚡ RESTORING ACCESS IN <span id="bwUnbanCount">10</span>s...
-          </div>
-        </div>
-
-        <div class="bw-rst" id="bwRst">⚡ RESTORING ACCESS…</div>
-      </div>
-    </div>
-
     <!-- LOADING SCREEN -->
     <div id="loadingScreen">
       <div class="ld-grid"></div>
@@ -2507,251 +1943,6 @@
           document.getElementById("pairNumber").placeholder = t.placeholder;
       }
 
-      // ══════════════════════════════════════════════════════════════
-      // BAN WALL — activator + ember spark canvas + live countdown
-      // Pure localStorage — no server IP involved, no shared-proxy risk
-      // ══════════════════════════════════════════════════════════════
-      var _bwRunning = false;
-
-      window.__showBanWall = function (exp) {
-        if (_bwRunning) return;
-        _bwRunning = true;
-        document.documentElement.classList.add("bw-active");
-
-        try {
-          document.getElementById("bwExpDisp").textContent =
-            "Expires: " + new Date(exp).toLocaleString();
-        } catch (e) {}
-
-        /* ember sparks */
-        var cv = document.getElementById("bwCanvas");
-        var cx = cv.getContext("2d");
-        var W, H;
-        function resize() {
-          W = cv.width = innerWidth;
-          H = cv.height = innerHeight;
-        }
-        resize();
-        window.addEventListener("resize", resize);
-        var EM = [];
-        for (var i = 0; i < 90; i++)
-          EM.push({
-            x: Math.random() * 1400,
-            y: Math.random() * 900 + 100,
-            vx: (Math.random() - 0.5) * 0.6,
-            vy: -(Math.random() * 1.2 + 0.4),
-            r: Math.random() * 2 + 0.5,
-            life: Math.random(),
-            maxLife: Math.random() * 0.7 + 0.3,
-            hue: Math.random() > 0.7 ? 20 : 0,
-          });
-        function drawEmbers() {
-          cx.clearRect(0, 0, W, H);
-          EM.forEach(function (e) {
-            e.life += 0.007;
-            if (e.life > e.maxLife) {
-              e.life = 0;
-              e.x = Math.random() * W;
-              e.y = H + 10;
-            }
-            var a = Math.sin((e.life / e.maxLife) * Math.PI);
-            cx.save();
-            cx.globalAlpha = a * 0.85;
-            cx.shadowColor = "hsl(" + e.hue + ",100%,55%)";
-            cx.shadowBlur = 8;
-            cx.fillStyle = "hsl(" + e.hue + ",100%," + (55 + a * 20) + "%)";
-            cx.beginPath();
-            cx.arc(e.x, e.y, e.r, 0, Math.PI * 2);
-            cx.fill();
-            cx.restore();
-            e.x += e.vx + Math.sin(Date.now() * 0.001 + e.y * 0.05) * 0.3;
-            e.y += e.vy;
-          });
-          requestAnimationFrame(drawEmbers);
-        }
-        drawEmbers();
-
-        /* countdown */
-        function pad(n) {
-          return String(n).padStart(2, "0");
-        }
-        function tick() {
-          var d = Math.max(0, exp - Date.now());
-          document.getElementById("bwH").textContent = pad(
-            Math.floor(d / 3600000),
-          );
-          document.getElementById("bwM").textContent = pad(
-            Math.floor((d % 3600000) / 60000),
-          );
-          document.getElementById("bwS").textContent = pad(
-            Math.floor((d % 60000) / 1000),
-          );
-          if (d > 0) {
-            setTimeout(tick, 1000);
-          } else {
-            try {
-              localStorage.removeItem("maliya_banned_until");
-            } catch (e2) {}
-            try {
-              localStorage.removeItem("maliya_req_track");
-            } catch (e2) {}
-            var rst = document.getElementById("bwRst");
-            if (rst) rst.style.display = "block";
-            setTimeout(function () {
-              location.reload();
-            }, 1500);
-          }
-        }
-        tick();
-      };
-
-      /* Activate immediately if page loaded while already banned */
-      if (window.__banExpiry) window.__showBanWall(window.__banExpiry);
-
-      // ══════════════════════════════════════════════════════════════
-      // UNBAN REQUEST FLOW
-      // ══════════════════════════════════════════════════════════════
-      function showUnbanRequest() {
-        document.getElementById("bwUnbanSection").style.display = "block";
-        document.getElementById("bwUnbanBtn").style.display = "none";
-        document.getElementById("bwUnbanCode").focus();
-      }
-
-      document.addEventListener("DOMContentLoaded", function () {
-        var inp = document.getElementById("bwUnbanCode");
-        if (inp) {
-          inp.addEventListener("keydown", function (e) {
-            if (e.key === "Enter") submitUnbanCode();
-          });
-
-          // Numbers only — strip non-digits immediately on every keystroke
-          inp.addEventListener("input", function () {
-            var start = inp.selectionStart;
-            var before = inp.value;
-            var after = before.replace(/[^0-9]/g, "");
-            if (before !== after) {
-              var removed = before.length - after.length;
-              inp.value = after;
-              var newPos = Math.max(0, start - removed);
-              inp.setSelectionRange(newPos, newPos);
-            }
-          });
-
-          // Paste: digits only
-          inp.addEventListener("paste", function (e) {
-            e.preventDefault();
-            var pasted = (e.clipboardData || window.clipboardData).getData(
-              "text",
-            );
-            var digits = pasted.replace(/[^0-9]/g, "");
-            var s = inp.selectionStart,
-              en = inp.selectionEnd;
-            inp.value = inp.value.slice(0, s) + digits + inp.value.slice(en);
-            inp.setSelectionRange(s + digits.length, s + digits.length);
-          });
-        }
-      });
-
-      async function submitUnbanCode() {
-        var code = document.getElementById("bwUnbanCode").value.trim();
-        var errEl = document.getElementById("bwUnbanErr");
-        var submitBtn = document.getElementById("bwUnbanSubmit");
-        if (!code) {
-          errEl.textContent = "Please enter the unban code.";
-          return;
-        }
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Verifying...";
-        errEl.textContent = "";
-        try {
-          var res = await fetch("/unban-verify", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ code: code }),
-          });
-          var data = await res.json();
-          if (data.ok) {
-            document.getElementById("bwUnbanSection").style.display = "none";
-            var cdWrap = document.getElementById("bwUnbanCountdown");
-            var cdNum = document.getElementById("bwUnbanCount");
-            cdWrap.style.display = "block";
-            var sec = 10;
-            cdNum.textContent = sec;
-            var iv = setInterval(function () {
-              sec--;
-              cdNum.textContent = sec;
-              if (sec <= 0) {
-                clearInterval(iv);
-                try {
-                  localStorage.removeItem("maliya_banned_until");
-                } catch (e2) {}
-                try {
-                  localStorage.removeItem("maliya_req_track");
-                } catch (e2) {}
-                location.reload();
-              }
-            }, 1000);
-          } else {
-            errEl.textContent = data.error || "Invalid code. Try again.";
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Submit Code";
-          }
-        } catch (e) {
-          errEl.textContent = "Network error. Try again.";
-          submitBtn.disabled = false;
-          submitBtn.textContent = "Submit Code";
-        }
-      }
-
-      // ══════════════════════════════════════════════════════════════
-      // CLIENT-SIDE RATE LIMITER  (localStorage only — no server IP)
-      // Limit: 10 requests / 24 h per browser
-      // ══════════════════════════════════════════════════════════════
-      var RL_LIMIT = 10;
-      var RL_WINDOW = 24 * 60 * 60 * 1000;
-      var RL_TRACK = "maliya_req_track";
-      var RL_BAN = "maliya_banned_until";
-
-      function checkRateLimit() {
-        var now = Date.now();
-
-        // 1) Already banned? Show wall immediately and block.
-        var banExp = 0;
-        try {
-          banExp = parseInt(localStorage.getItem(RL_BAN) || "0", 10);
-        } catch (e) {}
-        if (banExp > now) {
-          window.__showBanWall(banExp);
-          return false;
-        }
-
-        // 2) Load / reset the request tracking window.
-        var track;
-        try {
-          track = JSON.parse(localStorage.getItem(RL_TRACK) || "null");
-        } catch (e) {}
-        if (!track || now - track.start >= RL_WINDOW) {
-          track = { start: now, count: 0 };
-        }
-
-        // 3) Increment and save BEFORE checking, so the request is always counted.
-        track.count += 1;
-        try {
-          localStorage.setItem(RL_TRACK, JSON.stringify(track));
-        } catch (e) {}
-
-        // 4) Ban if limit reached (10th request is the last allowed).
-        if (track.count > RL_LIMIT) {
-          var expiry = track.start + RL_WINDOW;
-          try {
-            localStorage.setItem(RL_BAN, String(expiry));
-          } catch (e) {}
-          window.__showBanWall(expiry);
-          return false;
-        }
-        return true;
-      }
-
       // ===== SSE CONSOLE =====
       let sseSource = null;
       function startSSE(consoleEl, wrapEl) {
@@ -2782,22 +1973,68 @@
         };
       }
 
-      // ===== SERVER BAN HANDLER =====
-      // Called when server returns 429 — syncs localStorage and shows ban wall
-      function handleServerBan(banExpiry) {
-        try {
-          localStorage.setItem(RL_BAN, String(banExpiry));
-        } catch (e) {}
-        try {
-          localStorage.removeItem(RL_TRACK);
-        } catch (e) {}
-        window.__showBanWall(banExpiry);
-      }
-
       // ===== PAIR CODE =====
       let pairCode = "";
+      let _pairPollInterval = null;   // polling interval handle
+
+      // ── Stop any running poll ─────────────────────────────────────────
+      function stopPairingPoller() {
+        if (_pairPollInterval !== null) {
+          clearInterval(_pairPollInterval);
+          _pairPollInterval = null;
+        }
+      }
+
+      // ── Start polling /pair/check-status every 2 s ───────────────────
+      // Called immediately after the pair code appears on screen.
+      // Vercel function ඒ වෙලාවේ close වී ඇත — Baileys background ව
+      // WhatsApp confirmation await කරයි, MongoDB write කරයි.
+      // frontend poll කරලා ready state detect කරනවා.
+      function startPairingPoller(number, resultEl, copyBtn) {
+        stopPairingPoller();
+
+        _pairPollInterval = setInterval(async () => {
+          try {
+            const resp = await fetch(
+              "/pair/check-status?number=" + encodeURIComponent(number)
+            );
+            if (!resp.ok) return; // server error — next tick retry
+            const data = await resp.json();
+
+            if (data.ready) {
+              stopPairingPoller();
+
+              // SSE console stream close කරනවා
+              if (sseSource) { sseSource.close(); sseSource = null; }
+
+              // Copy button hide
+              if (copyBtn) copyBtn.style.display = "none";
+
+              // ✅ Success message
+              resultEl.innerHTML = `
+                <div style="text-align:center;padding:10px 0;">
+                  <div style="font-size:40px;margin-bottom:10px;">✅</div>
+                  <div style="
+                    color:var(--success);
+                    font-size:17px;
+                    font-weight:900;
+                    letter-spacing:2px;
+                    margin-bottom:8px;
+                    text-shadow:0 0 16px rgba(0,255,213,0.5);
+                  ">DEVICE LINKED!</div>
+                  <div style="color:var(--muted);font-size:12px;line-height:1.7;">
+                    Session saved to MongoDB.<br>
+                    Copy your Session ID from the bot dashboard.
+                  </div>
+                </div>`;
+            }
+          } catch (_) {
+            // network hiccup — silently retry
+          }
+        }, 2000); // 2s interval
+      }
+
       async function generatePair() {
-        if (!checkRateLimit()) return;
         const num = document.getElementById("pairNumber").value;
         if (!num) return;
         const btn = document.getElementById("pairBtn");
@@ -2805,6 +2042,8 @@
         const copyBtn = document.getElementById("pairCopyBtn");
         const consoleEl = document.getElementById("pairConsole");
         const wrapEl = document.getElementById("pairConsoleWrap");
+
+        stopPairingPoller(); // clear any previous poll
 
         consoleEl.innerHTML = "";
         startSSE(consoleEl, wrapEl);
@@ -2835,17 +2074,11 @@
                 copyBtn.textContent = "Copy failed";
               }
             };
+
+            // ── Code screen ට ආවාම polling start ──────────────────────
+            startPairingPoller(clean, result, copyBtn);
           }
         } catch (e) {
-          // Server returned 429 — trigger ban wall
-          if (e.response && e.response.status === 429) {
-            const expiry =
-              e.response.data && e.response.data.banExpiry
-                ? e.response.data.banExpiry
-                : Date.now() + 24 * 60 * 60 * 1000;
-            handleServerBan(expiry);
-            return;
-          }
           result.textContent = "Error — please try again";
         } finally {
           btn.disabled = false;
@@ -2855,7 +2088,6 @@
 
       // ===== QR CODE =====
       async function generateQR() {
-        if (!checkRateLimit()) return;
         const btn = document.getElementById("qrBtn");
         const result = document.getElementById("qrResult");
         const qrWrap = document.getElementById("qrWrap");
@@ -2883,15 +2115,6 @@
             result.textContent = "QR unavailable — please try again";
           }
         } catch (e) {
-          // Server returned 429 — trigger ban wall
-          if (e.response && e.response.status === 429) {
-            const expiry =
-              e.response.data && e.response.data.banExpiry
-                ? e.response.data.banExpiry
-                : Date.now() + 24 * 60 * 60 * 1000;
-            handleServerBan(expiry);
-            return;
-          }
           result.textContent = "Error loading QR — please try again";
         } finally {
           btn.disabled = false;
